@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Wolphy\Events;
 
 abstract class Event
 {

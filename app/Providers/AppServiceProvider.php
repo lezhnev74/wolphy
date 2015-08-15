@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Wolphy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

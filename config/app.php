@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'http://wolphy.dev',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,10 +140,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Wolphy\Providers\AppServiceProvider::class,
+        Wolphy\Providers\EventServiceProvider::class,
+        Wolphy\Providers\RouteServiceProvider::class,
 
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
     ],
 
     /*
@@ -192,6 +193,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
     ],
 
 ];

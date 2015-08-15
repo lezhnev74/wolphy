@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Exceptions;
+namespace Wolphy\Exceptions;
 
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+
+use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {

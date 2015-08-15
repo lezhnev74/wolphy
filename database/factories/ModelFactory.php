@@ -11,11 +11,17 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(Wolphy\Client::class, function ($faker) {
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->name,
         'email' => $faker->email,
-        'password' => str_random(10),
-        'remember_token' => str_random(10),
+        'birthdate'=>$faker->date
+    ];
+});
+
+$factory->define(Wolphy\Appointment::class, function ($faker) {
+    return [
+        'duration_minutes'=>$faker->numberBetween(60,120),
+        'datetime'=>$faker->dateTime
     ];
 });

@@ -30,9 +30,9 @@ return [
     ],
 
     'stripe' => [
-        'model'  => App\User::class,
+        'model'  => Wolphy\User::class,
         'key'    => '',
         'secret' => '',
-    ],
+    ]
 
 ];
