@@ -25,7 +25,8 @@ class CreateAppointmentsTable extends Migration
 
             $table->enum('status',[0,1,2])->default(0); //0-normal, 1-cancelled, 2-missed by client
 
-            $table->timestamps();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 

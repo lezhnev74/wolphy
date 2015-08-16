@@ -3,9 +3,19 @@
 namespace Wolphy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class Client extends Model
 {
+    /**
+     * Override default way of storing DATETIME of created_at, updated_at, deleted_at in LARAVEL
+     *
+     * @return string
+     */
+    protected function getDateFormat()
+    {
+        return 'Y-m-d H:i:s';
+    }
 
     /**
      * Get all the appointments for the client
@@ -26,7 +36,5 @@ class Client extends Model
         //Delete all linked appointments for this client
         $this->appointments()->delete();
     }
-
-
 
 }

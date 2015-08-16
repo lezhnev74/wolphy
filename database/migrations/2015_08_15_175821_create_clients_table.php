@@ -31,10 +31,8 @@ class CreateClientsTable extends Migration
             $table->string('twitter_url')->default('');
             $table->string('vk_url')->default('');
 
-            $table->timestamps();
-
-
-
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 
