@@ -19,8 +19,8 @@ class Appointment extends Model
      * return Query builder with scope to given dates (Includng $datetime_from, excluding $datetime_to)
      *
      * @param $query
-     * @param $datetime_from
-     * @param $datetime_to
+     * @param $datetime_from in format Y-m-d H:i:s
+     * @param $datetime_to in format Y-m-d H:i:s
      */
     function scopeDates($query,$datetime_from,$datetime_to) {
         $query->where('datetime' , '>=' , $datetime_from)

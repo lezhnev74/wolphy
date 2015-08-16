@@ -63,5 +63,12 @@ class AppointmentTest extends TestCase
         $this->assertEquals(2, Appointment::count());
 
         $this->assertEquals(1, Appointment::today()->count());
+
+        $this->assertEquals(1,
+                Appointment::dates(
+                    date("Y-m-d 00:00:01",strtotime("+2 days")) ,
+                    date("Y-m-d 00:00:01",strtotime("+9 days"))
+                )
+             ->count());
     }
 }
