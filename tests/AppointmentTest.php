@@ -18,7 +18,7 @@ class AppointmentTest extends TestCase
     }
 
     /**
-     * A basic functional test example.
+     * Test that when Client is deleted - all his appointments are deleted also
      *
      * @return void
      */
@@ -36,12 +36,32 @@ class AppointmentTest extends TestCase
 
         $this->assertEquals(2,$client->appointments()->count());
 
-        //now delete client
-
         $client->delete();
 
         $appointments_count = Appointment::count();
         $this->assertEquals(0,$appointments_count);
 
+    }
+
+    public function testScopeDates() {
+        $client = factory(Client::class)->make();
+        $client->user_id = 1;
+        $client->save();
+
+        $appointments = factory(Appointment::class,2)->make()
+            ->each(function($a) use($client) {
+                $a->client_id=$client->id;
+                $a->save();
+            });
+
+        $appointments[0]->datetime = date('Y-m-d 12:00:01');
+        $appointments[1]->datetime = date('Y-m-d',strtotime("+1 week"));
+
+        $appointments[0]->save();
+        $appointments[1]->save();
+
+        $this->assertEquals(2, Appointment::count());
+
+        $this->assertEquals(1, Appointment::today()->count());
     }
 }
