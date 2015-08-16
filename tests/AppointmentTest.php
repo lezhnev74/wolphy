@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use \Wolphy\Appointment;
 use \Wolphy\Client;
 use \Faker\Generator;
+use Carbon\Carbon;
 
 class AppointmentTest extends TestCase
 {
@@ -15,6 +16,7 @@ class AppointmentTest extends TestCase
     public function setUp() {
         parent::setUp();
 
+        \DB::enableQueryLog();
     }
 
     /**
@@ -43,7 +45,12 @@ class AppointmentTest extends TestCase
 
     }
 
+    /**
+     * Test that scope with dates is working
+     */
     public function testScopeDates() {
+
+
         $client = factory(Client::class)->make();
         $client->user_id = 1;
         $client->save();
@@ -70,5 +77,10 @@ class AppointmentTest extends TestCase
                     date("Y-m-d 00:00:01",strtotime("+9 days"))
                 )
              ->count());
+
+        $this->assertEquals(0 , Appointment::dates( date("Y-m-d 00:00:01" , strtotime("+8 days") ) )->count());
+
     }
+
+
 }

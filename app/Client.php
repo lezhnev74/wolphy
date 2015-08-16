@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    //
 
     /**
      * Get all the appointments for the client
@@ -16,15 +15,17 @@ class Client extends Model
         return $this->hasMany('Wolphy\Appointment');
     }
 
+    /**
+     * Override Eloquent delete to also delete all linked Appointments
+     *
+     * @throws \Exception
+     */
     public function delete() {
         parent::delete();
 
         //Delete all linked appointments for this client
         $this->appointments()->delete();
-
     }
-
-    
 
 
 
