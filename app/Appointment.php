@@ -20,6 +20,7 @@ class Appointment extends Model
      * return Query builder with scope of today's appointments
      *
      * @param $query
+     * @return $query
      */
     function scopeToday($query) {
         return $this->scopeDates($query , date('Y-m-d 00:00:00') , date('Y-m-d 00:00:00' , strtotime('tomorrow') ) );
@@ -33,6 +34,7 @@ class Appointment extends Model
      * @param $datetime_to in format Y-m-d H:i:s (excluding this datetime)
      *
      * @throws InvalidArgumentException if datetime arguments are in wrong format
+     * @return $query
      */
     function scopeDates($query,$datetime_from,$datetime_to=null) {
 
@@ -40,6 +42,19 @@ class Appointment extends Model
 
         if($datetime_to)
             $query->where('datetime', '<', Carbon::createFromFormat("Y-m-d H:i:s",$datetime_to) );
+
+        return $query;
+    }
+
+    /**
+     * Limits appointments to one most recent
+     *
+     * @param $query
+     * @return $query
+     */
+    function scopeLast($query) {
+
+        $query->orderBy('datetime','desc')->take(1);
 
         return $query;
     }
