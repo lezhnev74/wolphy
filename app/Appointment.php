@@ -17,6 +17,19 @@ class Appointment extends Model
     }
 
     /**
+     * return QueryBuilder scoped to a given client
+     *
+     * @param $client_id
+     * @return $query
+     */
+    function scopeClient($query, $client_id) {
+
+        $query->where('client_id',$client_id);
+
+        return $query;
+    }
+
+    /**
      * return Query builder with scope of today's appointments
      *
      * @param $query
@@ -58,6 +71,8 @@ class Appointment extends Model
 
         return $query;
     }
+
+
 
 
 }

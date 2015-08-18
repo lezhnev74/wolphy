@@ -134,5 +134,28 @@ class AppointmentTest extends TestCase
 
     }
 
+    /**
+     * Test that Eloquent's scopes works as expected
+     */
+    function testScopes() {
+        $appointments = [];
+        $appointments[0] = new Appointment();
+        $appointments[1] = new Appointment();
+        $appointments[2] = new Appointment();
+
+        $appointments[0]->datetime = date('2012-02-01 12:00:01'); $appointments[0]->client_id = 1;
+        $appointments[1]->datetime = date('2011-07-01 12:00:01'); $appointments[1]->client_id = 1;
+        $appointments[2]->datetime = date('2010-11-01 12:00:01'); $appointments[2]->client_id = 2;
+
+        $appointments[0]->save();
+        $appointments[1]->save();
+        $appointments[2]->save();
+
+        $this->assertEquals(2, Appointment::query()->client(1)->count());
+        $this->assertEquals(1, Appointment::query()->client(2)->count());
+
+        $this->assertEquals(1, Appointment::query()->client(1)->dates("2011-12-12 00:00:00")->count());
+        $this->assertEquals(0, Appointment::query()->client(1)->dates("2013-12-12 00:00:00")->count());
+    }
 
 }
