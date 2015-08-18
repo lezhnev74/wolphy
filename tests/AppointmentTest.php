@@ -28,7 +28,7 @@ class AppointmentTest extends TestCase
     public function testOnDeleteClientAppointmentsAlsoDeleted()
     {
         $client = factory(Client::class)->make();
-        $client->user_id = 1;
+        $client->account_id = 1;
         $client->save();
 
         $appointments = factory(Appointment::class,2)->make()
@@ -53,7 +53,7 @@ class AppointmentTest extends TestCase
 
 
         $client = factory(Client::class)->make();
-        $client->user_id = 1;
+        $client->account_id = 1;
         $client->save();
 
         $appointments = factory(Appointment::class,2)->make()
@@ -88,11 +88,11 @@ class AppointmentTest extends TestCase
      */
     public function testGettingColdUsers() {
         $client = factory(Client::class)->make();
-        $client->user_id = 1;
+        $client->account_id = 1;
         $client->save();
 
         $client2 = factory(Client::class)->make();
-        $client2->user_id = 1;
+        $client2->account_id = 1;
         $client2->phone = '1';
         $client2->email = 'a@a.com';
         $client2->save();

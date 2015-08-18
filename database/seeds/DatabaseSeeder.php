@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //Create a few fake clients and appointments
         for($i=0;$i<4;$i++) {
             $client = new Wolphy\Client();
-            $client->user_id = 1;
+            $client->account_id = 1;
             $client->first_name = $faker->firstName;
             $client->last_name = $faker->lastName;
             $client->email = $faker->email;

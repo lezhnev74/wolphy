@@ -9,12 +9,30 @@ class Appointment extends Model
 {
 
     /**
+     * Override saving function to set the `per_client_id` value on the first save
+     *
+     * @param array $options
+     * @return void
+     */
+    public function save(array $options = []) {
+
+        //if this is the first time saving - set per_account_id
+        if(!$this->per_client_id) {
+            //get the most number from this account's data
+            $this->per_client_id = $this->client->appointments()->count() + 1;
+        }
+
+        parent::save($options);
+    }
+
+    /**
      * Get appointment's client
      */
     public function client()
     {
         return $this->hasOne('Wolphy\Client','id','client_id');
     }
+
 
     /**
      * return QueryBuilder scoped to a given client
@@ -71,6 +89,8 @@ class Appointment extends Model
 
         return $query;
     }
+
+
 
 
 

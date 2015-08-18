@@ -13,7 +13,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "bugsnag/bugsnag-laravel": "1.*"
+        "bugsnag/bugsnag-laravel": "1.*",
+        "dingo/api": "0.10.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

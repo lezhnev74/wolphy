@@ -14,6 +14,11 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->increments('id');
+
+            //this id indicates number within one client
+            //so every account will have 1,2,3... appointment's ids.
+            $table->integer('per_client_id')->default(0);
+
             $table->integer('client_id')->index();
 
             $table->dateTime('datetime')->index();

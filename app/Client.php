@@ -2,13 +2,15 @@
 
 namespace Wolphy;
 
-use Illuminate\Database\Eloquent\Model;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+
     /**
-     * Override default way of storing DATETIME of created_at, updated_at, deleted_at in LARAVEL
+     * Override default(Laravel) way of storing DATETIME of created_at, updated_at, deleted_at in LARAVEL
      *
      * @return string
      */
@@ -17,12 +19,43 @@ class Client extends Model
         return 'Y-m-d H:i:s';
     }
 
+
     /**
      * Get all the appointments for the client
      */
     public function appointments()
     {
         return $this->hasMany('Wolphy\Appointment');
+    }
+
+    /**
+     * Return Query Builder with scope to one account
+     *
+     * @param $query
+     * @param $client_id
+     *
+     * @return $query
+     */
+    public function scopeAccount($query,$account_id) {
+        $query->where('account_id',$account_id);
+        return $query;
+    }
+
+    /**
+     * Override saving function to set the `per_account_id` value on the first save
+     *
+     * @param array $options
+     * @return void
+     */
+    public function save(array $options = []) {
+
+        //if this is the first time saving - set per_account_id
+        if(!$this->per_account_id) {
+            //get the most number from this account's data
+            $this->per_account_id = static::query()->account($this->account_id)->count() + 1;
+        }
+
+        parent::save($options);
     }
 
     /**

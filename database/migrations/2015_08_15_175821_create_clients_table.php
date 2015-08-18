@@ -14,7 +14,12 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->index();
+
+            //this id indicates number within one account
+            //so every account will have 1,2,3... client's ids.
+            $table->integer('per_account_id')->default(0);
+
+            $table->integer('account_id')->index();
 
             $table->string('image')->default(''); //url to image
 

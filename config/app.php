@@ -145,6 +145,7 @@ return [
         Wolphy\Providers\RouteServiceProvider::class,
 
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class,
     ],
 
     /*
@@ -194,6 +195,9 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
+        'API'=>Dingo\Api\Facade\API::class,
+        'APIRoute'=>Dingo\Api\Facade\Route::class,
+
     ],
 
 ];
