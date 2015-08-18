@@ -15,3 +15,14 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+
+Route::group( [
+
+    'prefix'=>'api'
+
+] , function(){
+
+    //Set Controllers as RESTful hubs
+    resource('client','ClientController',[ "except"=>[ 'create' , 'edit' ] ]);
+
+});

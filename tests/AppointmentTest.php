@@ -97,7 +97,8 @@ class AppointmentTest extends TestCase
         $client2->email = 'a@a.com';
         $client2->save();
 
-        //appointments for client
+        //appointments for client1
+
         $appointments = factory(Appointment::class,3)->make()
             ->each(function($a) use($client) {
                 $a->client_id=$client->id;
@@ -113,6 +114,7 @@ class AppointmentTest extends TestCase
         $appointments[2]->save();
 
         //appointments for client2
+
         $appointments = factory(Appointment::class,3)->make()
             ->each(function($a) use($client2) {
                 $a->client_id=$client2->id;
@@ -127,8 +129,8 @@ class AppointmentTest extends TestCase
         $appointments[1]->save();
         $appointments[2]->save();
 
-        $this->assertEquals(0, ClientRepository::getCold( "2012-12-02 00:00:01" )->count() );
-        $this->assertEquals(2, ClientRepository::getCold( "2012-10-02 00:00:01" )->count() );
+        $this->assertEquals(0, Client::getCold( "2012-12-02 00:00:01" )->count() );
+        $this->assertEquals(2, Client::getCold( "2012-10-02 00:00:01" )->count() );
 
     }
 
