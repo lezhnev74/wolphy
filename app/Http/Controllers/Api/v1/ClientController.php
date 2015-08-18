@@ -30,13 +30,22 @@ class ClientController extends Controller
     public function appointments($client_id)
     {
         $client = Client::query()->where('per_account_id',$client_id)
-                                 ->where('account_id',$this->auth->user()->id);
+                                 ->where('account_id',\Auth::user()->id)
+                                 ->first();
 
         if(!$client) {
             throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('Client #'.$client_id.' not found on your account');
         }
 
-        return $client->appointments()->get();
+
+        $appointments = $client->appointments()->get();
+        //I hide ID attribute and show per_client_id as real ID
+        $appointments->map(function($appointment){
+                            $appointment->id = $appointment->per_client_id;
+                            $appointment->setHidden(['per_client_id']);
+                      });
+
+        return $appointments;
     }
 
 

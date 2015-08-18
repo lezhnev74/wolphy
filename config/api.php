@@ -137,9 +137,32 @@ return [
     */
 
     'auth' => [
+        /*
         'basic' => function ($app) {
             return new Dingo\Api\Auth\Provider\Basic($app['auth']);
-        },
+        },*//*
+        'custom' => function ($app) {
+            return new Wolphy\Auth\CustomAuthProvider();
+        },*/
+        'oauth' => function ($app) {
+            $provider = new Dingo\Api\Auth\Provider\OAuth2($app['oauth2-server.authorizer']->getChecker());
+
+            $provider->setUserResolver(function ($id) {
+
+                //Even though the API is stateless I utilize the inner Auth subsystem
+                //So I can access current user through \Auth facade from any part of the app.
+                \Auth::onceUsingId($id);
+
+                return \Auth::user();
+            });
+
+            $provider->setClientResolver(function ($id) {
+                // Logic to return a client by their ID.
+                //It is not in USE by Wolphy
+            });
+
+            return $provider;
+        }
     ],
 
     /*

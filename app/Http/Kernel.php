@@ -22,6 +22,8 @@ class Kernel extends HttpKernel
 
         //Disable since API is stateless and session is not based on cookies (CSRF is impossible without the JWT)
         //\Wolphy\Http\Middleware\VerifyCsrfToken::class,
+
+        \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class
     ];
 
     /**
@@ -33,5 +35,10 @@ class Kernel extends HttpKernel
         //'auth' => \Wolphy\Http\Middleware\Authenticate::class,
         //'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         //'guest' => \Wolphy\Http\Middleware\RedirectIfAuthenticated::class,
+
+        //'oauth' => 'LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware',
+        //'oauth-owner' => 'LucaDegasperi\OAuth2Server\Middleware\OAuthOwnerMiddleware',
+        //'check-authorization-params' => 'LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware'
     ];
+
 }
